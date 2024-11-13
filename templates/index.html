@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Diabetes Predictor</title>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|Arimo|Hind:300|Open+Sans+Condensed:300" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    body {
+      background-color: #8b96d4e7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      color: #ffffff;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border-radius: 8px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    input:focus {
+      background-color: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+
+    .btn {
+      background-color: #4a77d4;
+      color: #ffffff;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #3762bc;
+    }
+
+    .prediction {
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Diabetes Predictor</h1>
+    <form action="{{ url_for('predict')}}" method="post">
+      <input type="number" name="glucose" step="any" placeholder="Glucose (mg/dL) e.g., 80" required>
+      <input type="number" name="bloodpressure" step="any" placeholder="Blood Pressure (mmHg) e.g., 80" required>
+      <input type="number" name="skinthickness" step="any" placeholder="Skin Thickness (mm) e.g., 20" required>
+      <input type="number" name="insulin" step="any" placeholder="Insulin Level (IU/mL) e.g., 80" required>
+      <input type="number" name="bmi" step="any" placeholder="Body Mass Index (kg/m²) e.g., 23.1" required>
+      <input type="number" name="dpf" step="any" placeholder="Diabetes Pedigree Function e.g., 0.52" required>
+      <input type="number" name="age" step="any" placeholder="Age (years) e.g., 34" required>
+      <button type="submit" class="btn">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="prediction">
+        <h4>{{ prediction_text }}</h4>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
